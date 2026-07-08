@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkiraChix Library - Sign In</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>AkiraChix Library</h2>
+                <p>Sign up below to access campus novels</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="studentName">Your Full Name</label>
+                <input type="text" id="studentName" placeholder="e.g. sophie,kuda,betty">
+            </div>
+
+            <div class="form-group">
+                <label for="studentClass">Select Your Class</label>
+                <select id="studentClass">
+                    <option value="" disabled selected>Choose your cohort...</option>
+                    <option value="Ada Lab">Ada Lab</option>
+                    <option value="Anita B">Anita B</option>
+                    <option value="Lovelace">Lovelace</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" id="loginBtn">Enter Library</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("loginBtn").addEventListener("click", function() {
+            const nameInput = document.getElementById("studentName").value.trim();
+            const classInput = document.getElementById("studentClass").value;
+
+            if (nameInput === "" || classInput === "") {
+                alert("Please enter your name and select an AkiraChix class!");
+                return;
+            }
+
+          
+            localStorage.setItem("akira_student_name", nameInput);
+            localStorage.setItem("akira_student_class", classInput);
+
+            
+            window.location.href = "home.html";
+        });
+    </script>
+</body>
+</html>

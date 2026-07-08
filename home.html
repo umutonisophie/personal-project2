@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkiraChix Library - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <div>
+                <h1 id="welcomeMessage">Welcome back!</h1>
+                <p id="classBadge" class="cohort-tag">Cohort</p>
+            </div>
+            <button class="logout-btn" id="logoutBtn">Sign Out</button>
+        </header>
+
+        <section class="main-content">
+            <div class="section-title">
+                <h2>Available Campus Novels</h2>
+                <p>Browse the catalog, choose your dates, and borrow instantly.</p>
+            </div>
+            
+            <div class="books-grid" id="booksGrid"></div>
+        </section>
+    </div>
+
+    <div class="modal-overlay" id="borrowModal">
+        <div class="modal-box">
+            <h3 id="modalBookTitle">Borrow Novel</h3>
+            <p class="modal-sub">Confirm your rental timeline details below.</p>
+            
+            <div class="form-group">
+                <label for="borrowDate">Date of Borrowing</label>
+                <input type="date" id="borrowDate">
+            </div>
+
+            <div class="form-group">
+                <label for="returnDate">Date of Returning</label>
+                <input type="date" id="returnDate">
+            </div>
+
+            <div class="modal-actions">
+                <button class="secondary-btn" onclick="closeModal()">Cancel</button>
+                <button class="success-btn" onclick="confirmBorrowAction()">Confirm Borrowing</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+        let libraryDataset = [
+            { id: 10, title: "The River Between", author: "Ngugi wa Thiong'o", available: true, borrowDate: null, returnDate: null },
+            { id: 20, title: "Born a Crime", author: "Trevor Noah", available: true, borrowDate: null, returnDate: null },
+            { id: 30, title: "Blossoms of the Savannah", author: "H.R. Ole Kulet", available: true, borrowDate: null, returnDate: null }
+        ];
+
+        let targetedBookId = null;
+        const booksGrid = document.getElementById("booksGrid");
+        const borrowModal = document.getElementById("borrowModal");
+
+        
+        window.onload = function() {
+            const savedName = localStorage.getItem("akira_student_name");
+            const savedClass = localStorage.getItem("akira_student_class");
+
+          
+            if (!savedName || !savedClass) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            document.getElementById("welcomeMessage").innerText = `Hello, ${savedName}!`;
+            document.getElementById("classBadge").innerText = `📚 ${savedClass}`;
+
+            renderBooksGrid();
+        };
+
+        function renderBooksGrid() {
+            booksGrid.innerHTML = "";
+
+            for (let i = 0; i < libraryDataset.length; i++) {
+                let book = libraryDataset[i];
+                let datesHTML = "";
+                let buttonHTML = "";
+
+                if (book.available === true) {
+                    buttonHTML = `<button class="borrow-btn" onclick="openBorrowModal(${book.id})">Choose Novel</button>`;
+                } else {
+                    datesHTML = `
+                        <div class="rental-dates">
+                            🗓️ Borrowed: ${book.borrowDate}<br>
+                            🔄 Due Back: ${book.returnDate}
+                        </div>
+                    `;
+                    buttonHTML = `<button class="return-btn" onclick="returnNovel(${book.id})">Return Novel</button>`;
+                }
+
+                booksGrid.innerHTML += `
+                    <div class="book-card">
+                        <div class="book-details">
+                            <h3>${book.title}</h3>
+                            <p class="author">by ${book.author}</p>
+                            <span class="id-tag">ID: ${book.id}</span>
+                        </div>
+                        <div class="book-status-section">
+                            ${datesHTML}
+                            ${buttonHTML}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function openBorrowModal(id) {
+            for (let i = 0; i < libraryDataset.length; i++) {
+                if (libraryDataset[i].id === id) {
+                    targetedBookId = id;
+                    document.getElementById("modalBookTitle").innerText = `Borrow: ${libraryDataset[i].title}`;
+                    document.getElementById("borrowDate").value = "";
+                    document.getElementById("returnDate").value = "";
+                    borrowModal.style.display = "flex";
+                    break;
+                }
+            }
+        }
+
+        function confirmBorrowAction() {
+            const bDate = document.getElementById("borrowDate").value;
+            const rDate = document.getElementById("returnDate").value;
+
+            if (bDate === "" || rDate === "") {
+                alert("Please select both borrowing and returning dates!");
+                return;
+            }
+
+            for (let i = 0; i < libraryDataset.length; i++) {
+                if (libraryDataset[i].id === targetedBookId) {
+                    libraryDataset[i].available = false;
+                    libraryDataset[i].borrowDate = bDate;
+                    libraryDataset[i].returnDate = rDate;
+                    break;
+                }
+            }
+
+            closeModal();
+            renderBooksGrid();
+        }
+
+        function closeModal() {
+            borrowModal.style.display = "none";
+            targetedBookId = null;
+        }
+
+        function returnNovel(id) {
+            for (let i = 0; i < libraryDataset.length; i++) {
+                if (libraryDataset[i].id === id) {
+                    libraryDataset[i].available = true;
+                    libraryDataset[i].borrowDate = null;
+                    libraryDataset[i].returnDate = null;
+                    break;
+                }
+            }
+            renderBooksGrid();
+        }
+
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            localStorage.clear(); // Empty login sessions
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>
