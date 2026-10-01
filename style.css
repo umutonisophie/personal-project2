@@ -10,6 +10,8 @@ body {
     background-color: #f5f7fb;
     color: #2d3748;
     min-height: 100vh;
+    background-image: url(https://i.pinimg.com/1200x/8e/ab/45/8eab45fe7ae10551283df99d9bff8bd1.jpg);
+    background-size: cover;
 }
 
 .auth-body {
@@ -60,7 +62,7 @@ body {
     font-size: 13px;
     font-weight: 600;
     margin-bottom: 8px;
-    color: #4a5568;
+    color:#e6f6f6;
 }
 
 .form-group input, .form-group select {
@@ -74,7 +76,7 @@ body {
 }
 
 .form-group input:focus, .form-group select:focus {
-    border-color: #008080;
+    border-color: black;
 }
 
 
@@ -106,7 +108,7 @@ body {
     font-size: 12px;
     font-weight: 700;
     background: #e6f6f6;
-    color: #008080;
+    color:black;
     padding: 4px 12px;
     border-radius: 20px;
 }
@@ -188,7 +190,7 @@ button {
 .primary-btn {
     width: 100%;
     padding: 12px;
-    background: #008080;
+    background:black;
     color: white;
     font-size: 15px;
 }
@@ -198,7 +200,7 @@ button {
 .borrow-btn {
     width: 100%;
     padding: 10px;
-    background: #008080;
+    background:black;
     color: white;
 }
 
@@ -258,4 +260,4 @@ button {
 
 .modal-actions button { padding: 10px 16px; }
 .secondary-btn { background: #edf2f7; color: #4a5568; }
-.success-btn { background: #008080; color: white; }
+.success-btn { background: black; color: white; }

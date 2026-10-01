@@ -20,7 +20,7 @@
         <section class="main-content">
             <div class="section-title">
                 <h2>Available Campus Novels</h2>
-                <p>Browse the catalog, choose your dates, and borrow instantly.</p>
+                <p>Choose a novel of your choice, choose your dates, and borrow seamlessly.</p>
             </div>
             
             <div class="books-grid" id="booksGrid"></div>
@@ -50,12 +50,22 @@
     </div>
 
     <script>
-       
-        let libraryDataset = [
-            { id: 10, title: "The River Between", author: "Ngugi wa Thiong'o", available: true, borrowDate: null, returnDate: null },
-            { id: 20, title: "Born a Crime", author: "Trevor Noah", available: true, borrowDate: null, returnDate: null },
-            { id: 30, title: "Blossoms of the Savannah", author: "H.R. Ole Kulet", available: true, borrowDate: null, returnDate: null }
-        ];
+    
+    let libraryDataset = [
+{ id: 10, title: "The River Between", author: "Ngugi wa Thiong'o", available: true, borrowDate: null, returnDate: null },
+{ id: 20, title: "Born a Crime", author: "Trevor Noah", available: true, borrowDate: null, returnDate: null },
+{ id: 30, title: "Blossoms of the Savannah", author: "H.R. Ole Kulet", available: true, borrowDate: null, returnDate: null },
+{ id: 40, title: "Things Fall Apart", author: "Chinua Achebe", available: true, borrowDate: null, returnDate: null },
+{ id: 50, title: "Half of a Yellow Sun", author: "Chimamanda Ngozi Adichie", available: true, borrowDate: null, returnDate: null },
+{ id: 60, title: "A Grain of Wheat", author: "Ngugi wa Thiong'o", available: true, borrowDate: null, returnDate: null },
+{ id: 70, title: "The Catcher in the Rye", author: "J.D. Salinger", available: true, borrowDate: null, returnDate: null },
+{ id: 80, title: "The Alchemist", author: "Paulo Coelho", available: true, borrowDate: null, returnDate: null },
+{ id: 90, title: "Americanah", author: "Chimamanda Ngozi Adichie", available: true, borrowDate: null, returnDate: null },
+{ id: 100, title: "Homegoing", author: "Yaa Gyasi", available: true, borrowDate: null, returnDate: null },
+{ id: 110, title: "Petals of Blood", author: "Ngugi wa Thiong'o", available: true, borrowDate: null, returnDate: null },
+{ id: 120, title: "The Joys of Motherhood", author: "Buchi Emecheta", available: true, borrowDate: null, returnDate: null },
+{ id: 130, title: "Dust", author: "Yvonne Adhiambo Owuor", available: true, borrowDate: null, returnDate: null }
+];
 
         let targetedBookId = null;
         const booksGrid = document.getElementById("booksGrid");
@@ -66,7 +76,7 @@
             const savedName = localStorage.getItem("akira_student_name");
             const savedClass = localStorage.getItem("akira_student_class");
 
-          
+        
             if (!savedName || !savedClass) {
                 window.location.href = "login.html";
                 return;
@@ -167,7 +177,7 @@
         }
 
         document.getElementById("logoutBtn").addEventListener("click", function() {
-            localStorage.clear(); // Empty login sessions
+            localStorage.clear(); 
             window.location.href = "login.html";
         });
     </script>
